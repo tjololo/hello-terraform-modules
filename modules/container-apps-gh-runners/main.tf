@@ -1,7 +1,7 @@
 
 locals {
   ip_rules = var.runner_ip != "" ? ["${var.runner_ip}/32"] : []
-  service_endpoints = concat(["Microsoft.KeyVault"], var.additional_service_endpoints)
+  service_endpoints = setunion(["Microsoft.KeyVault"], var.additional_service_endpoints)
 }
 
 # Create Resource Group

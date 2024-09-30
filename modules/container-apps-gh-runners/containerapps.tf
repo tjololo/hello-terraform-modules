@@ -17,7 +17,7 @@ resource "azurerm_container_app_environment" "acaghr_env" {
 
 resource "azurerm_container_app_job" "acaghr_app_job" {
   for_each = {for index, repo in var.repos:"${repo.owner}/${repo.name}" => repo}
-  name                         = "${var.prefix}-${owner}-${repo}-acaghr-job"
+  name                         = "${var.prefix}-${ecah.value.owner}-${each.value.repo}-acaghr-job"
   location                     = azurerm_resource_group.acaghr_rg.location
   resource_group_name          = azurerm_resource_group.acaghr_rg.name
   container_app_environment_id = azurerm_container_app_environment.acaghr_env.id

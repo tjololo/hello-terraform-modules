@@ -2,12 +2,14 @@
 locals {
   ip_rules = var.runner_ip != "" ? ["${var.runner_ip}/32"] : []
   service_endpoints = setunion(["Microsoft.KeyVault"], var.additional_service_endpoints)
+  default_tags = {
+    createdWith = "tjololo/hello-module/container-apps-gh-runners"
+  }
 }
 
-# Create Resource Group
-resource "azurerm_resource_group" "acaghr_rg" {
-  name     = "${var.prefix}-${random_string.resource_name.result}-acaghr"
-  location = var.location
+# Get resource group data
+data "azurerm_resource_group" "acaghr_rg" {
+  name = var.resource_group_name
 }
 
 resource "random_string" "resource_name" {

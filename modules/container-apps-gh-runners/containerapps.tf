@@ -1,15 +1,15 @@
 resource "azurerm_log_analytics_workspace" "acaghr_log" {
   name                = "${var.prefix}-${random_string.resource_name.result}-acaghr"
-  location            = azurerm_resource_group.acaghr_rg.location
-  resource_group_name = azurerm_resource_group.acaghr_rg.name
+  location            = data.azurerm_resource_group.acaghr_rg.location
+  resource_group_name = data.azurerm_resource_group.acaghr_rg.name
   sku                 = "PerGB2018"
   retention_in_days   = 30
 }
 
 resource "azurerm_container_app_environment" "acaghr_env" {
   name                       = "${var.prefix}-${random_string.resource_name.result}-acaghr"
-  location                   = azurerm_resource_group.acaghr_rg.location
-  resource_group_name        = azurerm_resource_group.acaghr_rg.name
+  location                   = data.azurerm_resource_group.acaghr_rg.location
+  resource_group_name        = data.azurerm_resource_group.acaghr_rg.name
   log_analytics_workspace_id = azurerm_log_analytics_workspace.acaghr_log.id
   infrastructure_subnet_id   = azurerm_subnet.acaghr_subnet.id
 }
@@ -18,8 +18,8 @@ resource "azurerm_container_app_environment" "acaghr_env" {
 resource "azurerm_container_app_job" "acaghr_app_job" {
   for_each = {for index, repo in var.repos:"${repo.owner}/${repo.name}" => repo}
   name                         = "${var.prefix}-${random_string.resource_name.result}-${random_string.job_name[eache.key].result}-acaghr"
-  location                     = azurerm_resource_group.acaghr_rg.location
-  resource_group_name          = azurerm_resource_group.acaghr_rg.name
+  location                     = data.azurerm_resource_group.acaghr_rg.location
+  resource_group_name          = data.azurerm_resource_group.acaghr_rg.name
   container_app_environment_id = azurerm_container_app_environment.acaghr_env.id
   replica_timeout_in_seconds   = 1800
   identity {

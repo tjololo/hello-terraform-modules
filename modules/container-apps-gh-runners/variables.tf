@@ -12,6 +12,11 @@ variable "prefix" {
   description = "Prefix for resources"
 }
 
+variable "resource_group_name" {
+  type = string
+  description = "Name of the resource group where the resources should be placed"
+}
+
 variable "runner_ip" {
   default     = ""
   type        = string

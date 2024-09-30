@@ -2,8 +2,8 @@ data "azurerm_client_config" "current" {}
 
 resource "azurerm_key_vault" "acaghr_vault" {
   name                       = "${var.prefix}${random_string.resource_name.result}acaghr"
-  location                   = azurerm_resource_group.acaghr_rg.location
-  resource_group_name        = azurerm_resource_group.acaghr_rg.name
+  location                   = data.azurerm_resource_group.acaghr_rg.location
+  resource_group_name        = data.azurerm_resource_group.acaghr_rg.name
   tenant_id                  = data.azurerm_client_config.current.tenant_id
   sku_name                   = "standard"
   soft_delete_retention_days = 7

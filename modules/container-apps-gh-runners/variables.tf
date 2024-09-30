@@ -57,14 +57,12 @@ variable "install_id" {
   description = "Github Installation Id"
 }
 
-variable "owner" {
-  type    = string
-  description = "Github owner/organization to add the runner to"
-}
-
-variable "repo" {
-  type    = string
-  description = "Github repo to add the runner to"
+variable "repos" {
+  type = set(object({
+    owner = string
+    name = string
+  }))
+  description = "Set of repos there should be created a job for running actiosn. Each owner/repo will get it's own azure container app job in the environsment"
 }
 
 #######################################

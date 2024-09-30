@@ -6,7 +6,17 @@ locals {
 
 # Create Resource Group
 resource "azurerm_resource_group" "acaghr_rg" {
-  name     = "${var.prefix}-acaghr-rg"
+  name     = "${var.prefix}-${random_string.resource_name.result}-acaghr"
   location = var.location
 }
 
+resource "random_string" "resource_name" {
+  length = 6
+  special = false
+}
+
+resource "random_string" "job_name" {
+  for_each = {for index, repo in var.repos:"${repo.owner}/${repo.name}" => repo}
+  length = 6
+  special = false
+}

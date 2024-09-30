@@ -1,7 +1,7 @@
 data "azurerm_client_config" "current" {}
 
 resource "azurerm_key_vault" "acaghr_vault" {
-  name                       = "${var.prefix}acaghtvault"
+  name                       = "${var.prefix}${random_string.resource_name.result}acaghr"
   location                   = azurerm_resource_group.acaghr_rg.location
   resource_group_name        = azurerm_resource_group.acaghr_rg.name
   tenant_id                  = data.azurerm_client_config.current.tenant_id

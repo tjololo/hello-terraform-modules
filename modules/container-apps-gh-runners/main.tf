@@ -15,10 +15,12 @@ data "azurerm_resource_group" "acaghr_rg" {
 resource "random_string" "resource_name" {
   length = 6
   special = false
+  upper = false
 }
 
 resource "random_string" "job_name" {
   for_each = {for index, repo in var.repos:"${repo.owner}/${repo.name}" => repo}
   length = 6
   special = false
+  upper = false
 }

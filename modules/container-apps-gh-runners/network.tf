@@ -4,6 +4,7 @@ resource "azurerm_virtual_network" "acaghr_vnet" {
   address_space       = [var.vnet_address_space]
   location            = data.azurerm_resource_group.acaghr_rg.location
   resource_group_name = data.azurerm_resource_group.acaghr_rg.name
+  tags = local.default_tags
 }
 
 # Create the Subnet for Azure Key Vault

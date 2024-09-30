@@ -1,11 +1,6 @@
 #######################################
 # Azure resources specific variables  #
 #######################################
-variable "location" {
-  default = "norwayeast"
-  description = "Location of the resources in azure"
-}
-
 variable "prefix" {
   default = "demo"
   type    = string

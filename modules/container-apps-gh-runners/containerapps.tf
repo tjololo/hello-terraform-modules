@@ -17,7 +17,7 @@ resource "azurerm_container_app_environment" "acaghr_env" {
 
 resource "azurerm_container_app_job" "acaghr_app_job" {
   for_each = {for index, repo in var.repos:"${repo.owner}/${repo.name}" => repo}
-  name                         = "${var.prefix}-${random_string.resource_name.result}-${random_string.job_name[eache.key].result}-acaghr"
+  name                         = "${var.prefix}-${random_string.resource_name.result}-${random_string.job_name[each.key].result}-acaghr"
   location                     = data.azurerm_resource_group.acaghr_rg.location
   resource_group_name          = data.azurerm_resource_group.acaghr_rg.name
   container_app_environment_id = azurerm_container_app_environment.acaghr_env.id
